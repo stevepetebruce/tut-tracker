@@ -36,7 +36,7 @@ export default {
       await AuthenticationService.register({
         email: this.email,
         password: this.password,
-      }); 
+      });
     },
   },
 };

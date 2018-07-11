@@ -5,16 +5,20 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 
+const config = require('./config/config');
+const {sequelize} = require('./models');
+
 const app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
+require('./routes')(app);
 
-app.get('/status', (req ,res) => {
-  res.send({
-    message: 'hello world'
-  })
-})
-app.listen(process.env.PORT || 8081);
+
+sequelize.sync()
+  .then(() => {
+    app.listen(config.port);
+    console.log(`Server Started on ${config.port}`);
+  });

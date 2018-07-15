@@ -1,5 +1,5 @@
 const Joi = require('joi');
-
+// validate registration
 module.exports = {
   register (req, res, next) {
     const schema = {

@@ -5,7 +5,7 @@
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Register</v-toolbar-title>
+            <v-toolbar-title>Login</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
             <v-card-text>
@@ -21,7 +21,7 @@
                   placeholder="password" />
 
                 <br>
-                <v-btn color="primary" @click="register">Register</v-btn>
+                <v-btn color="primary" @click="login">Login</v-btn>
 
                 <div class="error" v-html="error"></div>
 
@@ -46,9 +46,9 @@ export default {
     };
   },
   methods: {
-    async register() {
+    async login() {
       try {
-        await AuthenticationService.register({
+        await AuthenticationService.login({
           email: this.email,
           password: this.password,
         });

@@ -5,5 +5,8 @@ module.exports = (app) => {
   app.post('/register', 
     AuthenticatinControllerPolicy.register,
     AuthenticationController.register
-  )
+  );
+  app.post('/login', 
+    AuthenticationController.login
+  );
 };

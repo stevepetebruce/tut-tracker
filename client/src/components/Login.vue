@@ -2,39 +2,32 @@
 <template>
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
-        <v-card class="elevation-12">
-          <v-toolbar dark color="primary">
-            <v-toolbar-title>Login</v-toolbar-title>
-            <v-spacer></v-spacer>
-          </v-toolbar>
-            <v-card-text>
-            <v-form>
-                <v-text-field id="email" type="email"
-                  name="email"
-                  v-model="email"
-                  placeholder="email" />
-                <br>
-                <v-text-field id="password"  type="password"
-                  name="password"
-                  v-model="password"
-                  placeholder="password" />
+      <panel title="Login">
+        <v-form>
+            <v-text-field id="email" type="email"
+              name="email"
+              v-model="email"
+              placeholder="email" />
+            <br>
+            <v-text-field id="password"  type="password"
+              name="password"
+              v-model="password"
+              placeholder="password" />
 
-                <br>
-                <v-btn color="primary" @click="login">Login</v-btn>
+            <br>
+            <v-btn color="primary" @click="login">Login</v-btn>
 
-                <div class="error" v-html="error"></div>
+            <div class="error" v-html="error"></div>
 
-            </v-form>
-            </v-card-text>
-        </v-card>
-      </v-flex>
+        </v-form>
+      </panel>
     </v-layout>
   </v-container>
 </template>
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService';
+import Panel from '@/components/Panel';
 
 export default {
   name: 'Register',
@@ -58,6 +51,9 @@ export default {
         this.error = error.response.data.error;
       }
     },
+  },
+  components: {
+    Panel,
   },
 };
 </script>

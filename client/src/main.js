@@ -11,7 +11,9 @@ import App from './App';
 import router from './router';
 
 Vue.config.productionTip = false;
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  iconfont: 'md', // 'md' || 'mdi' || 'fa' || 'fa4'
+});
 
 sync(store, router);
 

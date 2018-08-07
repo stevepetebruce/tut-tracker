@@ -1,6 +1,6 @@
 const AuthenticationController = require('./controllers/AuthenticationController');
 const AuthenticatinControllerPolicy = require('./policies/AuthenticationControllerPolicy');
-const SeedsController = require('./policies/SeedsController');
+const SeedsController = require('./controllers/SeedsController');
 
 module.exports = (app) => {
   app.post('/register', 
@@ -11,6 +11,9 @@ module.exports = (app) => {
     AuthenticationController.login
   );
   app.get('/entries', 
-    EntriesController.getSeeds
+    SeedsController.getSeeds
+  );
+  app.post('/entries', 
+    SeedsController.post
   );
 };

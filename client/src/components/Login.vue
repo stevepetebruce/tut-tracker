@@ -2,25 +2,27 @@
 <template>
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
-      <panel title="Login">
-        <v-form>
-            <v-text-field id="email" type="email"
-              name="email"
-              v-model="email"
-              placeholder="email" />
-            <br>
-            <v-text-field id="password"  type="password"
-              name="password"
-              v-model="password"
-              placeholder="password" />
+      <v-flex xs12 sm8 md6 >
+        <panel title="Login">
+          <v-form>
+              <v-text-field id="email" type="email"
+                name="email"
+                v-model="email"
+                placeholder="email" />
+              <br>
+              <v-text-field id="password"  type="password"
+                name="password"
+                v-model="password"
+                placeholder="password" />
 
-            <br>
-            <v-btn color="primary" @click="login">Login</v-btn>
+              <br>
+              <v-btn color="primary" @click="login">Login</v-btn>
 
-            <div class="error" v-html="error"></div>
+              <div class="error" v-html="error"></div>
 
-        </v-form>
+          </v-form>
       </panel>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -60,6 +62,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .error {
-  color: red;
+  color: white;
 }
 </style>

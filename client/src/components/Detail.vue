@@ -5,65 +5,42 @@
       <v-flex xs4 >
         <panel title='Detail'>
         
-            <v-text-field id="name"
-              name="name"
-              required
-              :rules="[rules.required]"
-              v-model="seed.name"
-              label="name" />
+            <h1>{{seed.name}}</h1>
 
-            <v-text-field id="category"
-              name="category"
-              required
-              :rules="[rules.required]"
-              v-model="seed.category"
-              label="category" />
-   
-            <v-text-field id="imageUrl"
-              name="imageUrl"
-              v-model="seed.imageUrl"
-              label="image Url" />
+            <h2>{{seed.category}}</h2>
 
-            <v-text-field id="sow"
-              name="sow"
-              required
-              :rules="[rules.required]"
-              v-model="seed.sow"
-              label="When to Sow" />
-
-            <v-text-field id="harvest"
-              name="harvest"
-              required
-              :rules="[rules.required]"
-              v-model="seed.harvest"
-              label="When to harvest" />
-            <br>
-            <v-btn color="primary" @click="Submit">Submit</v-btn>
-            
-         
+            <p><img :src="seed.imageUrl" width="200"></p>
+            <p>{{seed.sow}}</p>
+            <p>{{seed.harvest}}</p>
+            <h3>Tips</h3>
+            <v-textarea 
+              readonly
+              v-model="seed.tips"
+            >
+          </v-textarea>
         </panel>
       </v-flex>
 
-      <v-flex xs8 >
-        <panel class="ml-4">
-          <v-textarea id="onlineDescription"
-              name="onlineDescription"
-              v-model="seed.onlineDescription"
-              label="Online Description">
-            </v-textarea>
-    
-            <v-textarea id="description"
-              name="description"
-              v-model="seed.description"
-              label="Final Description">
-            </v-textarea>
-         
-            <v-textarea id="tips"
-              name="tips"
-              v-model="seed.tips"
-              label="tips">
-            </v-textarea>
-            
+      <v-flex xs8>
+        <panel class="ml-4" title='Description'>
+          <h3>Online Description</h3>
+          <v-textarea 
+            readonly
+            v-model="seed.onlineDescription"
+          >
+          </v-textarea>
+          <h3>Final Description</h3>
+           <pre>{{seed.description}}</pre> 
+           <v-textarea
+            readonly
+            v-model="seed.description"
+          >
+          </v-textarea> 
+
+          <v-btn color="primary" @click="navigateToEdit({
+            name: 'edit',
+            params: { seedId: seed.id }
+          })">Edit</v-btn>
           </panel>
         </v-flex>
 
@@ -76,37 +53,21 @@ import SeedService from '@/services/seedService';
 import Panel from '@/components/Panel';
 
 export default {
+  data() {
+    return {
+      seed: {},
+    };
+  },
+  async mounted() {
+    const seedId = this.$store.state.route.params.seedId;
+    this.seed = (await SeedService.showSeed(seedId)).data;
+  },
   components: {
     Panel,
   },
-  data() {
-    return {
-      seed: {
-        category: null,
-        name: null,
-        onlineDescription: null,
-        description: null,
-        imageUrl: null,
-        sow: null,
-        harvest: null,
-        tips: null,
-      },
-      rules: {
-        required: value => !!value || 'Required',
-      },
-    };
-  },
   methods: {
-    async Submit() {
-      try {
-        // call API
-        await SeedService.postSeed(this.seed);
-        this.$router.push({
-          name: 'entries',
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    navigateToEdit(route) {
+      this.$router.push(route);
     },
   },
 };

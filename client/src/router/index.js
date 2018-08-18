@@ -5,6 +5,7 @@ import Register from '@/components/Register';
 import Login from '@/components/Login';
 import Entries from '@/components/Entries';
 import CreateEntry from '@/components/CreateEntries';
+import EditEntry from '@/components/EditEntry';
 import Detail from '@/components/Detail';
 
 Vue.use(Router);
@@ -35,6 +36,11 @@ export default new Router({
       path: '/entries/create',
       name: 'create',
       component: CreateEntry,
+    },
+    {
+      path: '/seed/:seedId/edit',
+      name: 'edit',
+      component: EditEntry,
     },
     {
       path: '/seed/:seedId',

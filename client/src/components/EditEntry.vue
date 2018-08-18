@@ -3,19 +3,15 @@
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
       <v-flex xs4 >
-        <panel title='Add Content'>
+        <panel title='Edit Content'>
         
             <v-text-field id="name"
               name="name"
-              required
-              :rules="[rules.required]"
               v-model="seed.name"
               label="name" />
 
             <v-text-field id="category"
               name="category"
-              required
-              :rules="[rules.required]"
               v-model="seed.category"
               label="category" />
    
@@ -38,7 +34,7 @@
               v-model="seed.harvest"
               label="When to harvest" />
             <br>
-            <v-btn color="primary" @click="Submit">Submit</v-btn>
+            <v-btn color="primary" @click="Edit">Submit</v-btn>
             
          
         </panel>
@@ -97,18 +93,29 @@ export default {
     };
   },
   methods: {
-    async Submit() {
+    async Edit() {
+      const seedId = this.$store.state.route.params.seedId;
       try {
         // call API
-        await SeedService.postSeed(this.seed);
+        //console.log(this.seed);
+        await SeedService.putSeed(this.seed);
         this.$router.push({
-          name: 'entries',
+          name: 'detail',
+          params: { seedId },
         });
       } catch (error) {
         // eslint-disable-next-line
-        console.log(error);
+        //console.log(error);
       }
     },
+  },
+  async mounted() {
+    try {
+      const seedId = this.$store.state.route.params.seedId;
+      this.seed = (await SeedService.showSeed(seedId)).data;
+    } catch (err) {
+      // console.log(err);
+    }
   },
 };
 </script>

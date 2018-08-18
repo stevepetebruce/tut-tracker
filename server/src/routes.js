@@ -10,10 +10,16 @@ module.exports = (app) => {
   app.post('/login', 
     AuthenticationController.login
   );
+  app.get('/seed/:seedId', 
+    SeedsController.showSeed
+  );
   app.get('/entries', 
     SeedsController.getSeeds
   );
   app.post('/entries', 
     SeedsController.post
+  );
+  app.put('/seed/:seedId', 
+    SeedsController.putSeed
   );
 };

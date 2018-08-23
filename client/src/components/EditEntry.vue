@@ -97,7 +97,7 @@ export default {
       const seedId = this.$store.state.route.params.seedId;
       try {
         // call API
-        //console.log(this.seed);
+        // console.log(this.seed);
         await SeedService.putSeed(this.seed);
         this.$router.push({
           name: 'detail',

@@ -1,8 +1,12 @@
 import Api from '@/services/Api';
 
 export default {
-  getSeeds() {
-    return Api().get('entries');
+  getSeeds(search) {
+    return Api().get('entries', {
+      params: {
+        search,
+      },
+    });
   },
   showSeed(seedId) {
     return Api().get(`seed/${seedId}`);

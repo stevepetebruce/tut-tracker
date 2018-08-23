@@ -1,11 +1,28 @@
 const {Seed} = require('../models');
+const Sequelize = require('sequelize');
 
 module.exports = {
   async getSeeds (req ,res) {
     try {
-      const seeds = await Seed.findAll({
-        limit: 10,
-      });
+      let seeds = null;
+      const search = req.query.search;
+      // find serach entry or display latest 10 entries
+      if (search) {
+        seeds = await Seed.findAll({
+          where: {
+            // sequalize to find any of these cases have content in search term
+            [Sequelize.Op.or]: [
+              {name: {[Sequelize.Op.like]: '%' + search + '%'}},
+              {category: {[Sequelize.Op.like]: '%' + search + '%'}},
+              {description: {[Sequelize.Op.like]: '%' + search + '%'}},
+             ]
+          }
+        });
+      } else {
+        seeds = await Seed.findAll({
+          limit: 10,
+        });
+      }
       res.send(seeds);
     } catch(error) {
       res.status(500).send({

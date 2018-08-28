@@ -18,7 +18,7 @@
               <br>
               <v-btn color="primary" @click="login">Login</v-btn>
 
-              <div class="error" v-html="error"></div>
+              <div class="danger-alert" v-html="error"></div>
 
           </v-form>
       </panel>
@@ -49,6 +49,9 @@ export default {
         });
         this.$store.dispatch('setToken', response.data.token);
         this.$store.dispatch('setUser', response.data.user);
+        this.$router.push({
+          name: 'entries',
+        });
       } catch (error) {
         this.error = error.response.data.error;
       }
@@ -61,7 +64,4 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.error {
-  color: white;
-}
 </style>

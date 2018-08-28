@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+
+
+const path = require('path')
 
 module.exports = {
   port: process.env.PORT || 8081,
@@ -8,10 +9,9 @@ module.exports = {
     user: process.env.DB_USER || 'tuttracker',
     password: process.env.DB_PASS || 'tuttracker',
     options:{
-      operatorsAliases: Op,
       dialect: process.env.DB_DIALECT || 'sqlite',
       host: process.env.DB_HOST || 'localhost',
-      storage: './tabtracker.sqlite',
+      storage: path.resolve(__dirname, '../../tabtracker.sqlite'),
     },
   },
   authentication: {

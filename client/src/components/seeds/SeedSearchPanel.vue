@@ -12,6 +12,7 @@
 
 <script>
 import Panel from '@/components/Panel';
+import _ from 'lodash';
 
 export default {
   data() {
@@ -20,7 +21,7 @@ export default {
     };
   },
   watch: {
-    search(value) {
+    search: _.debounce(async function(value) {
       const route = {
         // route name
         name: 'entries',
@@ -32,8 +33,8 @@ export default {
         };
       }
       this.$router.push(route);
-    },
-    // if refreshed route query string added to search input
+    }, 700),
+    // if page refreshed route query string added to search input
     '$route.query.search': {
       immediate: true,
       handler(value) {
